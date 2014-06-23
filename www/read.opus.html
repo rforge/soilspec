@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Reads binary OPUS files containing spectroscopy</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for read.opus-method {soil.spec}"><tr><td>read.opus-method {soil.spec}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Reads binary OPUS files containing spectroscopy</h2>
+
+<h3>Description</h3>
+
+<p>Reads binary <a href="http://www.bruker.com/products/infrared-near-infrared-and-raman-spectroscopy/opus-software/downloads.html">OPUS</a> files containing  infrared, near infrared and Raman spectroscopy measurements (absorbances) and generates an object of class <code>"SpectraPoints"</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre> 
+## S4 method for signature 'character'
+read.opus(file.name, sp = NULL,  
+    codes = c("ZFF","RES","SNM","DAT","LWN","FXV","LXV","NPT","MXY","MNY","END","TIM"), 
+    plot.spectra = FALSE, print.progress = FALSE, speclib = "ICRAF",
+    signif.digit = get("signif.digit", spec.opts), MID, st.wavenumbers = wavenumbers)
+## S4 method for signature 'list'
+read.opus(file.name, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>file.name</code></td>
+<td>
+<p><code>"character"</code>; file name with extension</p>
+</td></tr>
+<tr valign="top"><td><code>sp</code></td>
+<td>
+<p><code>"SpatialPoints"</code>; optional spatial object with coordinates of points with same sample ID's in the coordinates slot row names</p>
+</td></tr>
+<tr valign="top"><td><code>codes</code></td>
+<td>
+<p><code>"character"</code>; default OPUS codes</p>
+</td></tr>
+<tr valign="top"><td><code>plot.spectra</code></td>
+<td>
+<p><code>"logical"</code>; specifies whether to plot spectral curves every time a new sample is loaded</p>
+</td></tr>
+<tr valign="top"><td><code>print.progress</code></td>
+<td>
+<p><code>"logical"</code>; specifies whether to print progress</p>
+</td></tr>
+<tr valign="top"><td><code>signif.digit</code></td>
+<td>
+<p><code>"integer"</code>; number of significant digits</p>
+</td></tr>
+<tr valign="top"><td><code>speclib</code></td>
+<td>
+<p><code>"character"</code>; specifies which spectral library to base data points</p>
+</td></tr>
+<tr valign="top"><td><code>MID</code></td>
+<td>
+<p><code>"character"</code>; metadata ID</p>
+</td></tr>  
+<tr valign="top"><td><code>st.wavenumbers</code></td>
+<td>
+<p><code>"data.frame"</code>; standard wavenumbers with band names and upper / lower limits (usually predefined)</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>other optional arguments</p>
+</td></tr>  
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function will read OPUS files from Bruker Optics' Alpha, MPA and Tensor-27 spectrometers. A choice for the type of spectral library to be created from the data tables created is done. To match data points to ICRAF's spectral library set <code>speclib = "ICRAF"</code>, otherwise to create own spectral library based on OPUS files being converted set <code>speclib="New"</code>.</p>
+
+
+<h3>Note</h3>
+
+<p>Setting <code>speclib = "New"</code> may produce spectra with non-overlapping points brought about by slight drifts on the equipement and combinining with different columns can cause problems. If one chooses to create their own library, stable data points observed over time should be used to align all future scans.</p>
+
+
+<h3>Note</h3>
+
+<p>Reading long list of binary files can be time and memory consuming.</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Andrew Sila and Tomislav Hengl</p>
+
+
+<h3>References</h3>
+
+ 
+<ul>
+<li> <p><a href="http://www.bruker.com/products/infrared-near-infrared-and-raman-spectroscopy/opus-software/downloads.html">Bruker Coorporation Guide for Infrared Spectroscopy</a>
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="SpectraPoints.html">SpectraPoints-class</a></code>, <code><a href="predict.SpectraPoints.html">predict.SpectraPoints</a></code>, <code><a href="wavenumbers.html">wavenumbers</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Original binary Opus files:
+pth = system.file(package = "soil.spec")
+lst &lt;- as.list(list.files(path=pth, pattern="*.0$", full.names=TRUE))
+file.info(lst[[1]])
+xx &lt;- read.opus(lst)
+str(xx)
+## predict pH
+data(m.PHIHOX)
+s.xx &lt;- predict(xx, model = m.PHIHOX, prob. = .75)
+s.xx
+## Note: duplicate samples get unique name by default
+
+## predict all standard soil properties:
+nm &lt;- get("attributes", spec.opts)
+nm
+pr.lst &lt;- NULL
+for(k in 1:length(nm)){
+  data(list=paste("m.", nm[k], sep=""))
+  try( pr.lst[[k]] &lt;- predict(xx, variable=nm[k], 
+  model = get(paste("m.", nm[k], sep="")), prob. = .75) )
+}
+pr &lt;- do.call(cbind, pr.lst)
+View(pr)
+</pre>
+
+<hr><div align="center">[Package <em>soil.spec</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

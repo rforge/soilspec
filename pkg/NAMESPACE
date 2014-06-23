@@ -1,0 +1,13 @@
+import(utils, methods)
+importFrom("stats", prcomp, predict, spline)
+importFrom("KernSmooth",locpoly)
+importFrom("pls",mvr,plsr)
+importFrom("hexView",readRaw,blockString)
+importFrom("wavelets",dwt)
+importFrom("GSIF",validate)
+importFrom("sp",SpatialPoints,coordinates,CRS,rbind.SpatialPoints)
+importClassesFrom("sp",SpatialPoints,CRS)
+
+exportClasses(Spectra, SpectraPoints, SpectraModel)
+exportMethods(validate, predict, read.opus, fit, summary, plot, spectra.outliers)
+exportPattern("^[^\\.]")

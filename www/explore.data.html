@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Data summary</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for explore.data {soil.spec}"><tr><td>explore.data {soil.spec}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>
+Data summary</h2>
+
+<h3>Description</h3>
+
+<p>Another way of getting data summary statitics and organized in a user friendly way- tabular form</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+explore.data(datafile)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>datafile</code></td>
+<td>
+
+
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This takes a table and returns the total number of complete cases (excluding missing values), mean,minimum, maximum and standard deviation values for numeric columns in a data table. The output is well formated for a quick and useful exploration view</p>
+
+
+<h3>Value</h3>
+
+
+
+<table summary="R valueblock">
+<tr valign="top"><td><code>complete.cases</code></td>
+<td>
+<p>Number of complete observations</p>
+</td></tr>
+<tr valign="top"><td><code>Average</code></td>
+<td>
+<p>Mean of each numeric column</p>
+</td></tr>
+<tr valign="top"><td><code>Min </code></td>
+<td>
+<p>Minimum value of each numeric column</p>
+</td></tr>
+<tr valign="top"><td><code>Max </code></td>
+<td>
+<p>Maximum value of each numeric column</p>
+</td></tr>
+<tr valign="top"><td><code>Sd</code></td>
+<td>
+<p>Standard deviation value of each numeric column</p>
+</td></tr>
+</table>
+
+
+<h3>Note</h3>
+
+<p>If all columns are non-numeric the complete cases will be returned only</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Andrew Sila</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+## Not run: #Start by reading a file with data to be explored
+	## Not run: soil&lt;-read.csv(file.choose())
+	## Not run: explore.data(soil)
+</pre>
+
+<hr><div align="center">[Package <em>soil.spec</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

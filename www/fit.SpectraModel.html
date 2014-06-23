@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Fits a calibration model for soil spectroscopy</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for fit.SpectraModel-method {soil.spec}"><tr><td>fit.SpectraModel-method {soil.spec}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Fits a calibration model for soil spectroscopy</h2>
+
+<h3>Description</h3>
+
+<p>Fits a calibration model that can be used to convert absorbances to soil properties. Implements the <code>"plsr"</code> function available from the <a href="http://cran.r-project.org/web/packages/pls/">pls</a> package.</p>
+
+
+<h3>Usage</h3>
+
+<pre> 
+## S4 method for signature 'formula,SpectraPoints,data.frame'
+fit(formulaString, sampled, reference, 
+   idcol = "SAMPLEID", ab.r = get("MIR", envir=spec.opts), 
+   CO2.band = get("CO2.band", envir=spec.opts), ncomp, ncomp.max=15, 
+   repl = 5, segment.type = "interleaved", prefix = "X", ...)
+## S4 method for signature 'list,SpectraPoints,data.frame'
+fit(formulaString, sampled, reference, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>formulaString</code></td>
+<td>
+<p><code>"formula"</code>; formula string</p>
+</td></tr>
+<tr valign="top"><td><code>sampled</code></td>
+<td>
+<p><code>"SpectraPoints"</code>; absorbances</p>
+</td></tr>   
+<tr valign="top"><td><code>reference</code></td>
+<td>
+<p><code>"data.frame"</code>; reference values estimated in laboratory using at the order of magnitude more precise technique</p>
+</td></tr>
+<tr valign="top"><td><code>idcol</code></td>
+<td>
+<p><code>"character"</code>; column with sample IDs</p>
+</td></tr>  
+<tr valign="top"><td><code>ab.r</code></td>
+<td>
+<p><code>"numeric"</code>; natural range of wavenumbers of interest</p>
+</td></tr>
+<tr valign="top"><td><code>CO2.band</code></td>
+<td>
+<p><code>"numeric"</code>; range of wavenumbers for the CO2 band</p>
+</td></tr>
+<tr valign="top"><td><code>ncomp</code></td>
+<td>
+<p><code>"integer"</code>; number of components (if not specified will be determined using cross-validation)</p>
+</td></tr>
+<tr valign="top"><td><code>ncomp.max</code></td>
+<td>
+<p><code>"integer"</code>; maximum number of components to be used for model fitting</p>
+</td></tr>
+<tr valign="top"><td><code>repl</code></td>
+<td>
+<p><code>"integer"</code>; number of repetitions for <code>"pls::plsr"</code></p>
+</td></tr>
+<tr valign="top"><td><code>segment.type</code></td>
+<td>
+<p><code>"character"</code>; segment type for <code>"pls::plsr"</code></p>
+</td></tr>
+<tr valign="top"><td><code>prefix</code></td>
+<td>
+<p><code>"character"</code>; default prefix to be added to the band names</p>
+</td></tr>  
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>other optional arguments</p>
+</td></tr>  
+</table>
+
+
+<h3>Details</h3>
+
+<p>Returns an object of class <code>"SpectraModel"</code>, which contains slots: (1) <code>"variable"</code> (variable name according to the global soil data registry), (2) <code>"Space"</code> (3D space defined by the 1&ndash;3 principal components for absorbances), and (3) <code>"model"</code> (fitted model; usually of type <code>pls::plsr</code> and as an output from the partial least squares regression). Fitting models for large data sets can be time and memory consuming.</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Andrew Sila and Tomislav Hengl </p>
+
+
+<h3>References</h3>
+
+ 
+<ul>
+<li><p> Mevik, B.-H., Wehrens, R. (2007) <a href="http://www.jstatsoft.org/v18/i02/">The pls Package: Principal Component and Partial Least Squares Regression in R</a>. Journal of Statistical Software 18(2), 1-24.
+</p>
+</li>
+<li><p> Africa Soil Information Service (<a href="http://africasoils.net">http://africasoils.net</a>)
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="predict.SpectraPoints.html">predict.SpectraPoints</a></code>, <code><a href="spec.env.html">spec.opts</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+## build a callibration model using AfSIS data:
+library(GSIF)
+data(afss)
+library(plyr)
+afss.tbl &lt;- join(afss$sites, afss$horizons)
+con &lt;- url("http://gsif.isric.org/lib/exe/fetch.php?media=afss.spec.rda")
+load(con)
+afss.spec.ab &lt;- Spectra(samples=data.frame(SAMPLEID=afss.spec$SAMPLEID, 
+   MID="ICR_SOIL", DateTime=Sys.time()), ab=afss.spec)
+sel.r &lt;- !afss.tbl$LONWGS84==100
+sp &lt;- data.frame(afss.tbl[sel.r,c("LONWGS84","LATWGS84")])
+coordinates(sp) &lt;- ~LONWGS84+LATWGS84
+proj4string(sp) &lt;- CRS("+proj=longlat")
+attr(sp@coords, "dimnames")[[1]] &lt;- afss.tbl$SAMPLEID[sel.r]
+## extend to SprectraPoints:
+afss.spec.sp &lt;- SpectraPoints(Spectra=afss.spec.ab, sp=sp)
+## select bands of interest:
+cutspec &lt;- c(600,2350.8,2379.8,4000)
+col.no &lt;- sapply(names(afss.spec.sp@data@ab)[-1], 
+   function(x){as.numeric(strsplit(x, "X")[[1]][2])})
+sel &lt;- col.no&gt;cutspec[1] &amp; col.no&lt;cutspec[2] | 
+       col.no&gt;cutspec[3] &amp; col.no&lt;cutspec[4]
+summary(sel)
+formulaString &lt;- as.formula(paste("na.omit(log(ORCDRC)) ~ ", 
+   paste(names(afss.spec.sp@data@ab[-1])[sel], collapse="+")))
+m.ORC &lt;- fit(formulaString, sampled=afss.spec.sp, reference=afss.tbl) 
+str(m.ORC)
+
+## End(Not run)
+## this model, in fact, is included in the package:
+data(m.ORCCNS)
+str(m.ORCCNS)
+</pre>
+
+<hr><div align="center">[Package <em>soil.spec</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

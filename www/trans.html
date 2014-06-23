@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Spectral transformation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for trans {soil.spec}"><tr><td>trans {soil.spec}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Spectral transformation</h2>
+
+<h3>Description</h3>
+
+<p><code>trans</code> transforms spectra either by calculation of (i) derivatives, (ii) continuum removal or (iii) wavelet transform. The used functions are  (i) <code>locpoly</code> function in <code>"KernSmooth"</code> package, (ii) <code>chull</code> and <code>approx</code> functions in <code>"KernSmooth"</code> package and (iii) <code>dwt</code> function in <code>"wavelets"</code> package , respectively.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+trans(raw, tr = "derivative", order = 1, gap = 21, 
+   plot.spectrogram = FALSE)
+
+## S3 method for class 'trans'
+plot(x,...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>raw</code></td>
+<td>
+<p>a matrix containing the raw spectra</p>
+</td></tr>
+<tr valign="top"><td><code>tr</code></td>
+<td>
+<p>a character naming the transformation method; see details</p>
+</td></tr>
+<tr valign="top"><td><code>order</code></td>
+<td>
+<p>an integer between 0 and 3 giving the order of derivative; the value 0 performs smoothing based on the <code>gap</code></p>
+</td></tr>
+<tr valign="top"><td><code>gap</code></td>
+<td>
+<p>an integer between 1 and 30 defining the smoothing interval in wavebands</p>
+</td></tr>
+<tr valign="top"><td><code>plot.spectrogram</code></td>
+<td>
+<p>specifies whether to plot the spectrogram by default</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object of class <code>"trans"</code></p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional arguments</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>spec.type</code> uses for spectral transformation (i) the <code>locpoly</code> function in <code>KernSmooth</code> package for derivative calculation, (ii) the <code>chull</code> and <code>approx</code> functions in <code>"KernSmooth"</code> package for continuum removal and (iii) the <code>dwt</code> function in <code>wavelets</code> package for extraction of wavelet coefficients. Experiences showed for wavelet decomposition that the best ratio of prediction performance and sparse spectral representation is reached when all 128 wavelet coefficients from decomposition level three are taken.
+</p>
+<p>Possible options for <code>tr</code> are <code>"derivative"</code>, <code>"continuum removed"</code> or <code>"wavelet transformed"</code>.
+</p>
+
+
+
+<h3>Value</h3>
+
+<p><code>trans</code> returns a list with class <code>"trans"</code> containing the following components:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>raw</code></td>
+<td>
+<p>a matrix containing the raw spectra.</p>
+</td></tr>
+<tr valign="top"><td><code>trans</code></td>
+<td>
+<p>a matrix containing the transformed spectra.</p>
+</td></tr>
+<tr valign="top"><td><code>transformation</code></td>
+<td>
+<p>a character naming the transformation method.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Thomas Terhoeven-Urselmans</p>
+
+<hr><div align="center">[Package <em>soil.spec</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

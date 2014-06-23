@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Converts wavenumbers to wavelengths and vice versa</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for wl2wn {soil.spec}"><tr><td>wl2wn {soil.spec}</td><td align="right">R Documentation</td></tr></table>
+
+<h2> Converts wavenumbers to wavelengths and vice versa</h2>
+
+<h3>Description</h3>
+
+<p>Converts wavelengths (nm) to wavenumbers (<i>cm^{-1}</i>) and vice versa.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+wl2wn(x, signif.digit=get("signif.digit", spec.opts))
+wn2wl(x, signif.digit=get("signif.digit", spec.opts))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>numeric; either wavenumbers or wavelengths to be converted</p>
+</td></tr>
+<tr valign="top"><td><code>signif.digit</code></td>
+<td>
+<p>integer; significant digits</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Wavenumber is defined as the number of wavelengths per unit distance (<i>\frac{1}{&lambda;}</i>),where <i>&lambda;</i> is the wavelength. For electromagnetic radiation, wavenumber is proportional to frequency and to photon energy. Therefore, wavenumbers are used as a unit of energy in spectroscopy and in the SI  system of units expressed in units of reciprocal meters (<i>m^-1</i>), but in spectroscopy it is standard practise to give wavenumbers in reciprocal centimeters (<i>cm^-1</i>) or Kaisers. Kaiser (K) is a unit of energy. A common form is kiloKaiser (kK): <i> 1kK = 1000 cm ^-1</i>. This unit is most commonly used with respect to energy transitions between electronic states in inorganic complexes.
+The unit is names after Heinrich Gustav Johannes Kayser (16 March 1853 - 14 October 1940), a German physicist. While on the other hand, since wavelengths are usually very small one often uses nano meter (nm) which is <i>10^-1</i> m. During conversion process specify in the dialogue menu whether you are converting from wavenumbers to wavelengths or vice versa
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Andrew Sila</p>
+
+
+<h3>References</h3>
+
+
+<ul>
+<li><p> French, A P. (1971) Vibrations and Waves. New York: W. W. Norton.
+</p>
+</li>
+<li><p> Fuguet, Elisabet; Carla Rafols; et al. (2003) Langmuir Vol. 19, No. 1.
+</p>
+</li></ul>
+	
+
+<hr><div align="center">[Package <em>soil.spec</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

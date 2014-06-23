@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Sample soil spectroscopy data from Africa Sentinel Sites</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for afspec {soil.spec}"><tr><td>afspec {soil.spec}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Sample soil spectroscopy data from Africa Sentinel Sites</h2>
+
+<h3>Description</h3>
+
+<p>Sample data (113 samples) containing absorbances in the Mid infrared region (MIR) collected at 57 sites (Africa Sentinel Sites).</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(afspec)</pre>
+
+
+<h3>Format</h3>
+
+<p>The <code>afspec</code> data set contains two data frames &mdash; <code>"samples"</code> and <code>"ab"</code>. <code>"samples"</code> table contains the following columns:
+</p>
+
+<dl>
+<dt><code>SAMPLEID</code></dt><dd><p>factor; unique soil sample ID (duplicate IDs are possible as same soil sample can be measured twice)</p>
+</dd>
+<dt><code>Cluster</code></dt><dd><p>integer; Africa Sentinel Sites cluster number</p>
+</dd>
+<dt><code>Plot</code></dt><dd><p>integer; Africa Sentinel Sites plot number</p>
+</dd>
+<dt><code>Depth</code></dt><dd><p>factor; lower depth of the sampled horizon</p>
+</dd>
+<dt><code>Site</code></dt><dd><p>factor; site name</p>
+</dd> 
+<dt><code>Country</code></dt><dd><p>factor; country name</p>
+</dd>
+<dt><code>Region</code></dt><dd><p>factor; region name</p>
+</dd>
+<dt><code>Longitude</code></dt><dd><p>numeric; longitude in decimal degrees on the WGS84 datum (<code>Lat</code> in the LDSF Field Database)</p>
+</dd>   
+<dt><code>Latitude</code></dt><dd><p>numeric; latitude in decimal degrees on the WGS84 datum (<code>Lat</code> in the LDSF Field Database)</p>
+</dd>
+</dl>
+
+<p><code>"ab"</code> table contains the following columns:
+</p>
+
+<dl>
+<dt><code>SAMPLEID</code></dt><dd><p>factor; ...</p>
+</dd>
+<dt><code>m4003.5..m599.8</code></dt><dd><p>numeric; mid-infrared raw absorbance for denoted wavenumbers (Bruker-LTS instrument)</p>
+</dd>
+<dt>...</dt><dd><p>other raw absorbance values</p>
+</dd>
+</dl>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Africa Soil Information Service (<a href="http://africasoils.net">http://africasoils.net</a>)</p>
+
+
+<h3>References</h3>
+
+
+<ul>
+<li><p> Vagen, T., Shepherd, K. D., Walsh, M. G., Winowiecki, L., Desta, L. T., &amp; Tondoh, J. E. (2010) <a href="http://worldagroforestry.org/sites/default/files/afsisSoilHealthTechSpecs_v1_smaller.pdf">AfSIS technical specifications: soil health surveillance</a>. World Agroforestry Centre, Nairobi, Kenya.
+</p>
+</li>
+<li><p> World Agroforestry Centre (<a href="http://worldagroforestry.org">http://worldagroforestry.org</a>)
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+library(sp)
+data(afspec)
+sp &lt;- afspec$samples[,c("Longitude","Latitude")]
+coordinates(sp) &lt;- ~Longitude+Latitude
+proj4string(sp) &lt;- CRS("+proj=longlat +datum=WGS84")
+## prepare 'samples' table
+samples &lt;- cbind(afspec$samples["SAMPLEID"], 
+    MID="AfSIS-MIR", 
+    DateTime=Sys.time())
+## convert to "SpectraPoints"
+afspec.sp &lt;- SpectraPoints(Spectra=Spectra(samples, afspec$ab), sp=sp)
+summary(afspec.sp)
+get("attributes", spec.opts)
+## predict soil pH:
+data(m.PHIHOX)
+PHIHOX &lt;- predict(afspec.sp, model=m.PHIHOX)
+data(m.ORCCNS)
+ORCCNS &lt;- predict(afspec.sp, model=m.ORCCNS)
+## Not run: 
+library(plotKML)
+afspec.pnts &lt;- SpatialPointsDataFrame(sp, cbind(PHIHOX, ORCCNS))
+data(SAGA_pal)
+plotKML(afspec.pnts["PHIHOX"], colour_scale=rev(SAGA_pal[[1]]))
+plotKML(afspec.pnts["ORCCNS"], colour_scale=SAGA_pal[[1]])
+## plot with global soil legends:
+library(GSIF)
+data(soil.legends)
+brks = c(soil.legends[["PHIHOX"]]$MIN[1]/10, soil.legends[["PHIHOX"]]$MAX/10)
+levs = paste(signif(rowMeans(cbind(soil.legends[["PHIHOX"]]$MAX,soil.legends[["PHIHOX"]]$MIN))/10, 2))
+afspec.pnts$Col &lt;- cut(afspec.pnts$PHIHOX, breaks=brks, labels=levs)
+plotKML(afspec.pnts["Col"], colour_scale=soil.legends[["PHIHOX"]]$COLOR)
+
+## End(Not run)
+</pre>
+
+<hr><div align="center">[Package <em>soil.spec</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: A tool for screening spectral outliers based on...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for spectra.outliers {soil.spec}"><tr><td>spectra.outliers {soil.spec}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>A tool for screening  spectral outliers based on Multidimensional Scaling (MDS) approach</h2>
+
+<h3>Description</h3>
+
+<p> Reads a data table containing raw spectra which first is transformed using first derivative from Savitzky-Golay algorithm to take off any effects due to measurement differences.
+Euclidean distances are computed from the first derivative transformed spectra, other types for metric measure can be used but the function uses Euclidean method only. 
+Multidimensional scaling is then used to represent proximities or Euclidean similarity distances in a more organized structure. Simple visualization are produced on request to show how individual
+spectral point distribution within the Euclidean space. Mean and standard deviation  for the similarity distances are calculated for determining the most similar points and the most dissimilar ones.
+There are two types of situations covered here. When checking for outliers within an highly homogenous spectral set where, outliers will be marked for point lying one standard deviation
+away from the mean distance. This is the case when screening for outliers from a reference standard sample used to keep checking on instrument stability. The other situation is when checking for
+spectral outliers from a large spectra collection. In this case, the confidence interval for dertermining outliers is increased upto three standard deviations from the mean to allow for any normal sample to
+sample differences. Therefore, in the function specifying whether spectra comes from standard or non.standard is recommended for the correct confindence interval calculation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre> spectra.outliers(file.name,spectra="non.standard",plots=TRUE,smethod="euclidean",k=5)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>file.name</code></td>
+<td>
+<p><code>"character"</code>; file name with extension</p>
+</td></tr>
+<tr valign="top"><td><code>spectra</code></td>
+<td>
+<p><code>"character"</code>; specify whether spectra is from &quot;non.standard&quot; for actual sample spectra or is a &quot;standard&quot; for reference samples.</p>
+</td></tr>
+<tr valign="top"><td><code>plots</code></td>
+<td>
+<p><code>"logical"</code>; specifies whether to produce outlier diagnostic plots or not. Default is set to TRUE</p>
+</td></tr>
+<tr valign="top"><td><code>smethod</code></td>
+<td>
+<p><code>"character"</code>; specifies metric method for computing similarity distance. Euclidean method is the one supported </p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+<p><code>"integer"</code>; number of components to visualize the MDS distance</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<table summary="R valueblock">
+<tr valign="top"><td><code>dist </code></td>
+<td>
+<p>n by k matrix with similarity distances, n=rows of spectral table; k=the number of components used defualut is set to 5</p>
+</td></tr>
+<tr valign="top"><td><code>all.outliers</code></td>
+<td>
+<p>Row numbers with spectra marked as outliers</p>
+</td></tr>
+<tr valign="top"><td><code>spec.out</code></td>
+<td>
+<p>Data frame with outlier spectra</p>
+</td></tr>
+<tr valign="top"><td><code>spec.normal</code></td>
+<td>
+<p>Data frame with remaining spectra after removing outlier spectra</p>
+</td></tr>
+</table>
+
+
+
+<h3>Note</h3>
+
+<p>There are two options for getting list of outliers:
+</p>
+
+<ul>
+<li><p> Take all the points marked as outliers falling outside the confidence bands explained above
+</p>
+</li>
+<li><p> Get into interactive mode to identify outlying points by clicking all the points appearing as outliers. To stop selection press ctrl+any keyboard button
+</p>
+</li></ul>
+
+<p>But whichever the choice, all points outside the confidence band is given in different colour to aid easy identification.
+User to decide on whether to use the default outliers ir use the interactive mode</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Andrew Sila and Tomislav Hengl</p>
+
+
+<h3>References</h3>
+
+ 
+<ul>
+<li><p> Kruskal, J.B. and M. Wish (1978). Multidimensional Scaling. Sage.
+</p>
+</li>
+<li><p> Cox, T.F., Cox, M.A.A. (2001). Multidimensional Scaling. Chapman and Hall.
+</p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+#File containing spectra to screen outliers
+file.name&lt;-"d:/Stds/Alpha Daily Standards/Whitesand Standards.csv"
+## TH: You can include this csv file in the inst folder; see: http://cran.r-project.org/doc/manuals/R-exts.html#Package-subdirectories
+
+## Start outlier detection; Use default outliers or  get into interactive mode
+outliers&lt;-spectra.outliers(file.name, spectra="standard",smethod="euclidean",k=5)
+
+##Extract similarity distance
+mds&lt;-outliers$dist
+
+##Extract a list of all  spectra picked as outliers if in interactive mode or auto generated
+spectra.o&lt;-outliers$spec.out
+
+## Extract the list of normal spectra
+spectra.n&lt;outliers$spec.normal
+
+## End(Not run)
+</pre>
+
+<hr><div align="center">[Package <em>soil.spec</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

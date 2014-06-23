@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Predict soil properties from an object of class...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for predict.SpectraPoints-method {soil.spec}"><tr><td>predict.SpectraPoints-method {soil.spec}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Predict soil properties from an object of class <code>"SpectraPoints"</code></h2>
+
+<h3>Description</h3>
+
+<p>Predicts soil properties from an object of class <code>"SpectraPoints"</code> (or a <code>"data.frame"</code> containing absorbances and sample IDs) either by using a referent <code>"SpectraModel"</code> (comes with the package) or by using the user created model. Extends for example the <code>"predict.mvr"</code> function available from the <a href="http://cran.r-project.org/web/packages/pls/">pls</a> package.</p>
+
+
+<h3>Usage</h3>
+
+<pre> 
+## S4 method for signature 'SpectraPoints'
+predict(object, idcol = "SAMPLEID", model, 
+   variable = model@variable, 
+   output, validate = FALSE, model.class = "mvr",
+   confidence.band = TRUE, prob. = .90, 
+   signif.digits = 3, 
+   st.wavenumbers=wavenumbers, 
+   instr.range = c("ten-mir", "alp-mir", "mpa-nir")[1],
+   ...)
+## S4 method for signature 'data.frame'
+predict(object, idcol = "SAMPLEID", ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>object of type <code>"SpectraPoints"</code></p>
+</td></tr>
+<tr valign="top"><td><code>idcol</code></td>
+<td>
+<p><code>"character"</code>; ID column name</p>
+</td></tr> 
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p><code>"SpectraModel"</code>; prediction model</p>
+</td></tr>   
+<tr valign="top"><td><code>variable</code></td>
+<td>
+<p><code>"character"</code>; variable name (see 'attributes in <code>spec.env(show.env = TRUE)</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>output</code></td>
+<td>
+<p><code>"SoilProfileCollection"</code>; optional output object where the predicted soil properties can be written</p>
+</td></tr>
+<tr valign="top"><td><code>validate</code></td>
+<td>
+<p><code>"logical"</code>; runs validation of overlap of points in feature space (see details)</p>
+</td></tr>
+<tr valign="top"><td><code>model.class</code></td>
+<td>
+<p><code>"character"</code>; prediction model class</p>
+</td></tr> 
+<tr valign="top"><td><code>confidence.band</code></td>
+<td>
+<p><code>"logical"</code>; specifies whether confidence bands should be derived for each prediction</p>
+</td></tr>   
+<tr valign="top"><td><code>prob.</code></td>
+<td>
+<p><code>"numeric"</code>; probability for confidence bands</p>
+</td></tr>
+<tr valign="top"><td><code>signif.digits</code></td>
+<td>
+<p><code>"integer"</code>; significant digits (all output numbers are typically rounded to three significant digits to save space)</p>
+</td></tr>
+<tr valign="top"><td><code>st.wavenumbers</code></td>
+<td>
+<p><code>"data.frame"</code>; standard wavenumbers with band names and upper / lower limits (usually predefined)</p>
+</td></tr>
+<tr valign="top"><td><code>instr.range</code></td>
+<td>
+<p><code>"character"</code>; instrument range</p>
+</td></tr>   
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>other optional arguments</p>
+</td></tr>  
+</table>
+
+
+<h3>Details</h3>
+
+<p>When predicting from a <code>data.frame</code>, column names must contain wavenumbers and first column must contain sample IDs. Validation of overlap in feature space is done using PCs 1-3 derived from absorbance bands. This method basically compares for each new sample shortest distance (in 3D space; derived using <code>spatstat::nncross.pp3</code>) to the cloud of referent points and then prints warning if the distance is larger than two times the largest <code>nndist</code> (distance) for the referent point cloud.</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Tomislav Hengl and Andrew Sila</p>
+
+
+<h3>References</h3>
+
+ 
+<ul>
+<li><p> Mevik, B.-H., Wehrens, R. (2007) <a href="http://www.jstatsoft.org/v18/i02/">The pls Package: Principal Component and Partial Least Squares Regression in R</a>. Journal of Statistical Software 18(2), 1-24.
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="SpectraPoints.html">SpectraPoints-class</a></code>, <code><a href="fit.SpectraModel.html">fit.SpectraModel</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+data(afspec)
+## predict pH using absorbances directly:
+data(m.PHIHOX)
+x &lt;- predict(afspec$ab, model=m.PHIHOX)
+
+## how good is this model?
+## we look at the calibration data used to produce "m.PHIHOX"
+pr &lt;- m.PHIHOX@model$fitted.values
+library(GSIF)
+library(plyr)
+library(scales)
+data(afss)
+afss.tbl &lt;- join(afss$sites, afss$horizons)
+tbl &lt;- merge(data.frame(predicted=pr, SAMPLEID=attr(pr, "names")), 
+   afss.tbl[,c("SAMPLEID","PHIHOX")])
+v.r &lt;- range(tbl$PHIHOX)
+r.square &lt;- summary(lm(as.formula(paste("PHIHOX ~ predicted - 1")),
+   tbl))$adj.r.squared
+plot(x=tbl$predicted, y=tbl$PHIHOX, asp=1, xlim=v.r, ylim=v.r, 
+   col=alpha("darkgrey", 0.5), xlab="Predicted", ylab="Measured", 
+   main=paste("R-square:", formatC(r.square, digits=3), sep=""))
+abline(a=0, b=1, lw=2, col="black")
+
+## End(Not run)
+</pre>
+
+<hr><div align="center">[Package <em>soil.spec</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

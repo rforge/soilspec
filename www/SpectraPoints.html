@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: A class for spectral absorbance measurements</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for SpectraPoints-class {soil.spec}"><tr><td>SpectraPoints-class {soil.spec}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>A class for spectral absorbance measurements</h2>
+
+<h3>Description</h3>
+
+<p>A class for spectral absorbance measurements typically in the medium infra-red range (MIR), visible near infra-red (VISMIR) and near-infra-red.</p>
+
+
+<h3>Details</h3>
+
+<p>The class expects by default absorbance, and not reflectance values. For large data sets we advise using the wide data format.
+</p>
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt><code>metadata</code>:</dt><dd><p>object of class <code>"data.frame"</code>; metadata table containg relevant information such as <code>"MID"</code> (metadata ID), <code>"Instrument_name"</code>, <code>"Instrument_URL"</code>, <code>"Laboratory_name"</code>, <code>"Laboratory_contact"</code> (contact person and his/her e-mail address), <code>"Laboratory_URL"</code>, <code>"Material_class"</code> (e.g. soil or vegetation), <code>"Wavenumber_conversion"</code>, <code>"Wavenlength_unit"</code>, <code>"Location_error"</code></p>
+</dd>
+<dt><code>data</code>:</dt><dd><p>object of class <code>"Spectra"</code>; contains absorbance values in wide or long format</p>
+</dd>
+<dt><code>sp</code>:</dt><dd><p>object of class <code>"SpatialPoints"</code>; sampling locations</p>
+</dd>
+</dl>
+
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>summary</dt><dd><p><code>signature(obj = "SpectraPoints")</code>: default summary of the object showing number of bands and points</p>
+</dd>
+<dt>validate</dt><dd><p><code>signature(obj = "SpectraPoints")</code>: check for overlap in feature space in comparison to the calibration data</p>
+</dd>
+</dl>
+
+
+
+<h3>Author(s)</h3>
+
+<p> Tomislav Hengl and Andrew Sila </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="fit.SpectraModel.html">fit.SpectraModel</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre> 
+## generate the class:
+library(sp)
+data(afspec)
+## get spatial coordinates:
+sp &lt;- afspec$samples[,c("Longitude","Latitude")]
+coordinates(sp) &lt;- ~Longitude+Latitude
+proj4string(sp) &lt;- CRS("+proj=longlat +datum=WGS84")
+## prepare 'samples' table
+samples &lt;- cbind(afspec$samples["SAMPLEID"], 
+    MID="AfSIS-MIR", 
+    DateTime=Sys.time())
+## convert to "SpectraPoints"
+afspec.sp &lt;- SpectraPoints(Spectra=Spectra(samples, afspec$ab), sp=sp)
+summary(afspec.sp)
+plot(afspec.sp@data)
+data(m.PHIHOX)
+</pre>
+
+<hr><div align="center">[Package <em>soil.spec</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

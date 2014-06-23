@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Prepares HTSxt, Alpha and MPA spectral data tables to be used...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for bart.pred {soil.spec}"><tr><td>bart.pred {soil.spec}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Prepares HTSxt, Alpha and MPA spectral data tables to be used by the prediction engine</h2>
+
+<h3>Description</h3>
+
+<p> This function prepares HTSxt, Alpha and MPA soil spectral data table to be used by the prediction engine located at:
+Prediction engine url: http://afsistest.ciesin.columbia.edu/bart_prediction
+The spectral file to be predicted should be a CSV or ASCII format with the following details
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+bart.pred(file.name,instr.data=c("HTSxt","MPA","Alpha"),depth)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>file.name</code></td>
+<td>
+
+<p>file.name refers to the file with spectra to be put in the format required by the prediction engine. If the current working directory is not the same as the where the spectral file is stored, then the file.name should included the full path. </p>
+</td></tr>
+<tr valign="top"><td><code>instr.data</code></td>
+<td>
+<p>BART prediction engine contain models for three Bruker spectrometers: 1). Tensor-27 (HTSxt) for MIR; 2). Alpha for MIR ; and 3). NIR Multi-purpose Analyzer (MPA). The function requires the spectra file to be identified with its instrument source.</p>
+</td></tr>
+<tr valign="top"><td><code>depth</code></td>
+<td>
+<p>This is the actual soil sampling depth in meters, see details for further explaination.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Spectral data acquired from spectromters contains some non-informative bands which should be dropped prior to prediction. The particular informative bands used to develop BART prediction models are: 
+</p>
+
+<ul>
+<li><p> HTSxt: m4003.5 - m601.7 wavenumbers (<i>cm^{-1}</i>); 
+</p>
+</li>
+<li><p> Alpha: a3998.1 - a400.8 wavenumbers (<i>cm^{-1}</i>) and;
+</p>
+</li>
+<li><p> MPA n8003.5 - n399.8 wavenumbers (<i>cm^{-1}</i>) 
+</p>
+</li></ul>
+
+<p>Soil sampling depth is expressed in form of meters from the sampling details obtained in the field. This function takes one sampling depth at atime, 
+therefore users are advised to put together spectra from one sampling depth to be predict in one batch and prepare another batch from a different sampling depth. 
+Another approach will be included in the package's vignette	</p>
+
+
+<h3>Value</h3>
+
+<p>A data frame with spectra organized in rows with first column holding spectral ids (SSN), second column holding sampling depth (m) which is  repeated in all the spectra and the rest of the columns are the required 
+spectral points corresponding to the type of instrumnet data being prepared.</p>
+
+
+<h3>Note</h3>
+
+<p>Matching regions are obtained if during the OPUS file conversion the option for using ICRAF setting is selected.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Andrew Sila and Tomislav Hengl</p>
+
+
+<h3>References</h3>
+
+
+<p><a href="http://afsistest.ciesin.columbia.edu/bart_prediction/">http://afsistest.ciesin.columbia.edu/bart_prediction/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="read.opus.html">read.opus</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Read a file with spectra to be formatted with uniform sample depth from Alpha spectrometer
+#file.name&lt;-"d:/raw spectra.csv"
+
+##  What is the sampling depth?
+## If soil samples were taken from the surface at 0 - 20 cm
+depth &lt;-0.2 
+
+##Run bart.pred
+#pred&lt;-bart.pred(file.name,"Alpha",0.2)
+
+#Save formatted spectra file to be used for prediction process
+#write.table(pred, file="d:/predictions",sep=",",row.names=FALSE)
+</pre>
+
+<hr><div align="center">[Package <em>soil.spec</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>
+</body></html>
