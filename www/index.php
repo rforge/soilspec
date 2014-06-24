@@ -51,7 +51,7 @@ echo $contents; } ?>
 
 <p> No content added. </p>
 
-<p> The <strong>project summary page</strong> you can find <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/"><strong>here</strong></a>. </p>
+<p> The <strong>project summary page</strong> you can find <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/"><strong>here</strong></a>. Description of the functions and data sets is available from the <a href="00Index.html"><strong>package documentation</strong></a>. </p>
 <hr />
 <p><strong>soil.spec package</strong>: Soil spectroscopy tools and reference models</p>
 <h2>Maintainers:</h2>
@@ -64,14 +64,14 @@ echo $contents; } ?>
     <tr>
       <td><p align="center" dir="ltr"><strong><img src="andrew.sila.jpg" alt="andrew.sila" width="120" height="167"/></strong></p>
           <p align="center" class="style2" dir="ltr"><strong>A. (Andrew) Sila</strong></p></td>
-      <td width="450"><p dir="ltr"><a href="http://www.worldagroforestry.org/about_us/organisation_and_people/senior_leadership/Shepherd">World Agroforestry Centre</a> (ICRAF)<br />
+      <td width="450"><p dir="ltr"><a href="http://www.worldagroforestry.org/about_us/organisation_and_people/senior_leadership/Shepherd" target="_blank">World Agroforestry Centre</a> (ICRAF)<br />
         Data Analyst</p>
           <p dir="ltr">Contact: A.SILA@CGIAR.ORG</p></td>
     </tr>
     <tr>
       <td><p align="center" dir="ltr"><strong><img src="tom.hengl.jpg" width="120" height="173" alt="tom.hengl"/></strong></p>
           <p align="center" class="style2" dir="ltr"><strong>T. (Tom) Hengl</strong></p></td>
-      <td width="450"><p dir="ltr">ISRIC &mdash; World Soil Information<br />
+      <td width="450"><p dir="ltr"><a href="http://www.isric.org" target="_blank">ISRIC &mdash; World Soil Information</a><br />
         Senior researcher</p>
         <p dir="ltr">Contact: TOM.HENGL@WUR.NL </p></td>
     </tr>
@@ -86,16 +86,16 @@ echo $contents; } ?>
 <p dir="ltr">Among other things, the package provides: </p>
 <ul>
   <li dir="ltr">
-    <p dir="ltr">Classes and methods for Spectra data (Spectra, SpectraPoints, and SpectraModel);</p>
+    <p dir="ltr">Classes and methods for Spectra data (<a href="SpectraPoints.html">Spectra</a>, <a href="SpectraPoints.html">SpectraPoints</a>, and <a href="fit.SpectraModel.html">SpectraModel</a>);</p>
   </li>
   <li dir="ltr">
-    <p dir="ltr">Generic fit.SpectraModel and predict.SpectraPoints methods based on the <a href="http://cran.r-project.org/web/packages/pls/">PLS</a> models;</p>
+    <p dir="ltr">Generic <a href="fit.SpectraModel.html">fit.SpectraModel</a> and <a href="predict.SpectraPoints.html">predict.SpectraPoints</a> methods based on the <a href="http://cran.r-project.org/web/packages/pls/">PLS</a> models;</p>
   </li>
   <li dir="ltr">
-    <p dir="ltr">Reference models to predict soil properties (organic carbon, soil pH, Al, ExCa, ExK, ExMg, ExNa, Exbases, N, Sand) from spectral absorbance data (MIR, alpha-MIR and VISNIR);</p>
+    <p dir="ltr"><a href="predict.SpectraPoints.html">Reference models to predict soil properties</a> (organic carbon, soil pH, Al, ExCa, ExK, ExMg, ExNa, Exbases, N, Sand) from spectral absorbance data (MIR, alpha-MIR and VISNIR);</p>
   </li>
   <li dir="ltr">
-    <p dir="ltr">Auxiliary functions to visualize Spectra objects and detect outliers;</p>
+    <p dir="ltr">Auxiliary functions to <a href="plot.Spectra.html">visualize Spectra objects</a> and detect outliers;</p>
   </li>
 </ul>
 <hr />
@@ -103,21 +103,14 @@ echo $contents; } ?>
 <p dir="ltr">To install from source please use:</p>
 <pre><em>&gt; install.packages(c(&quot;pls&quot;, &quot;KernSmooth&quot;, &quot;wavelets&quot;, &quot;hexView&quot;, &quot;sp&quot;, &quot;GSIF&quot;, &nbsp;&quot;e1071&quot;, &quot;class&quot;, &quot;chemometrics&quot;, &quot;plyr&quot;, &quot;plotKML&quot;, &quot;mgcv&quot;, &quot;nlme&quot;, &quot;spatstat&quot;, &quot;scales&quot;, &quot;date&quot;, &quot;lava&quot;))</em><br /><em>&gt; install.packages(&quot;soil.spec&quot;, repos=c(&quot;http://R-Forge.R-project.org&quot;), type = &quot;source&quot;)</em></pre>
 <p>Typical workflow in the soil.spec package is:</p>
-<pre><em>&gt; #1. Import binary file containing absorbances (OPUS):</em><br />
-<em>&gt; xx &lt;- read.opus(&quot;icr_087266_B2.0&quot;)</em><br />
-Creating object of type &quot;SpectraPoints&quot;...<br />
-<em>&gt; #2. Load the reference model:</em><br />
-<em>&gt; data(m.PHIHOX)</em><br />
-<em>&gt; #3. Predict soil pH based on the reference model:</em><br />
-<em>&gt; s.xx &lt;- predict(xx, model = m.PHIHOX, prob. = .75)</em><br />
-<em>&gt; s.xx</em><br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PHIHOX PHIHOX_lower PHIHOX_upper<br />
-icr087266 &nbsp;&nbsp;&nbsp;9.1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.58 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9.62</pre>
+<pre><em>&gt; #1. Import binary file containing absorbances (OPUS):</em><br /><em>&gt; xx &lt;- read.opus(&quot;icr_087266_B2.0&quot;)</em><br />Creating object of type &quot;SpectraPoints&quot;...<br /><em>&gt; #2. Load the reference model:</em><br /><em>&gt; data(m.PHIHOX)</em><br /><em>&gt; #3. Predict soil pH based on the reference model:</em><br /><em>&gt; s.xx &lt;- predict(xx, model = m.PHIHOX, prob. = .75)</em><br /><em>&gt; s.xx</em><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PHIHOX PHIHOX_lower PHIHOX_upper<br />icr087266 &nbsp;&nbsp;&nbsp;9.1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.58 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9.62</pre>
+<hr />
 <h2>OPUS spectral data format</h2>
-<p dir="ltr">This package has been build to read OPUS files from the three Bruker spectrometers into R to be used in chemometric methods e.g. developing calibration models, for prediction, clustering, etc. Co2 bands (2380-2351 cm-1) within the MIR data are removed at the time of conversion from the original OPUS format, to ensure consistent spectra obtain from different parts of the world with varying CO2 concentration in the atmosphere.</p>
-<p dir="ltr">OPUS (OPtical User Software) is the Bruker data collection and analysis program for Alpha, Multi-Purpose Analyzer (MPA) and Tensor 27 FT-IR (HTS-xt) spectrometers. Spectral data files stored in this format are characterized by a numeric extension, usually a zero unless there are duplicates which are given increamented by one. There are lots of spectral details &nbsp;stored in form of data-blocks &nbsp;inside these files ranging from date and time of measurement, type of instrument used, Absorbance values, IR regions and much, please visit this <a href="http://shaker.umh.es/investigacion/OPUS_script/OPUS_5_BasePackage.pdf">link </a>for details. </p>
-<h2 dir="ltr"><strong>Reference models</strong></h2>
-<p dir="ltr"><strong>soil.spec</strong> package provides reference models to predict a list of targeted soil properties (organic carbon, soil pH, Al, ExCa, ExK, ExMg, ExNa, Exbases, N, Sand) directly from absorbances, i.e. without a need to fit your own calibration data. How were these models fitted? We used the calibration data (1391 samples) from the Africa Soil Information Services (AfSIS) project to fit pan-African soil spectroscopy calibration models. To learn more about the AfSIS project, please visit this <a href="http://www.africasoils.net/">link</a>.</p>
+<p dir="ltr">This package has been build to <a href="read.opus.html">read OPUS files</a> from the three Bruker spectrometers into R to be used in chemometric methods e.g. developing calibration models, for prediction, clustering, etc. Co2 bands (2380-2351 cm-1) within the MIR data are removed at the time of conversion from the original OPUS format, to ensure consistent spectra obtain from different parts of the world with varying CO2 concentration in the atmosphere.</p>
+<p dir="ltr">OPUS (OPtical User Software) is the Bruker data collection and analysis program for Alpha, Multi-Purpose Analyzer (MPA) and Tensor 27 FT-IR (HTS-xt) spectrometers. Spectral data files stored in this format are characterized by a numeric extension, usually a zero unless there are duplicates which are given increamented by one. There are lots of spectral details &nbsp;stored in form of data-blocks &nbsp;inside these files ranging from date and time of measurement, type of instrument used, Absorbance values, IR regions and much, please visit this <a href="http://shaker.umh.es/investigacion/OPUS_script/OPUS_5_BasePackage.pdf">link </a>for details.</p>
+<hr />
+<h2>Reference models</h2>
+<p dir="ltr"><strong>soil.spec</strong> package provides reference models to predict a list of targeted soil properties (<a href="spec.env.html">organic carbon, soil pH, Al, ExCa, ExK, ExMg, ExNa, Exbases, N, Sand</a>) directly from absorbances, i.e. without a need to fit your own calibration data. How were these models fitted? We used the calibration data (1391 samples) from the Africa Soil Information Services (AfSIS) project to fit <a href="http://gsif.r-forge.r-project.org/afss.html">pan-African soil spectroscopy calibration models</a>. To learn more about the AfSIS project, please visit this <a href="http://www.africasoils.net/">link</a>.</p>
 Correlation plots:<br />
 <ol>
   <li><strong dir="ltr">MIR </strong>(<a href="Fig_10_vars_fits_HST_MIR.png">plot</a>)</li>
