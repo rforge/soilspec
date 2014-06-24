@@ -7,7 +7,7 @@ Author: Andrew Sila, Tomislav Hengl and Thomas Terhoeven-Urselmans
 Maintainer: Andrew Sila <asila@cgiar.org>
 URL: http://worldagroforestry.org/research/land-health,
         http://www.africasoils.net/
-Description: A collection of tools customized for preprocessing and analyzing soil and plant infrared spectroscopy data with useful tools included for working with other ancillary data.
+Description: A collection of functions (methods) and classes for processing and analyzing soil and plant infrared (MIR, alpha-MIR and VISNIR) spectroscopy readings based on the Africa Soil Information Services (AfSIS) project data.
 Depends: R (>= 3.0)
 Imports: methods, stats, pls, KernSmooth, wavelets, hexView, sp, GSIF
 Suggests: e1071, class, chemometrics, plyr, plotKML, mgcv, nlme, spatstat, scales, date, lava
