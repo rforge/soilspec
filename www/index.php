@@ -51,10 +51,20 @@ echo $contents; } ?>
 
 <p> No content added. </p>
 
-<p> The <strong>project summary page</strong> you can find <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/"><strong>here</strong></a>. Description of the functions and data sets is available from the <a href="00Index.html"><strong>package documentation</strong></a>. </p>
+<p> The <strong>project summary page</strong> you can find <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/"><strong>here</strong></a>. Description of the functions and data sets is available from the <a href="00Index.html"><strong>package documentation</strong></a>. To submit a bug report or a wish list please use the official <a href="https://r-forge.r-project.org/tracker/?group_id=1867"><strong>package tracker</strong></a>. </p>
 <hr />
 <p><strong>soil.spec package</strong>: Soil spectroscopy tools and reference models</p>
-<h2>Maintainers:</h2>
+<p><strong>Table of contents:</strong></p>
+<ul>
+  <li><a href="#Package_maintainers">Package maintainers</a></li>
+  <li><a href="#General_workflow">General workflow and main classes</a></li>
+  <li><a href="#Installation">Installation and first steps</a></li>
+  <li><a href="#OPUS_data_format">OPUS spectral data format</a></li>
+  <li><a href="#Reference_models">Reference models</a></li>
+  <li><a href="#Disclaimer">Disclaimer / correct citation</a> </li>
+</ul>
+<hr />
+<h2><a name="Package_maintainers" id="Package_maintainers"></a>Package maintainers:</h2>
 <div dir="ltr">
   <table cellpadding="5" cellspacing="5">
     <colgroup>
@@ -79,11 +89,10 @@ echo $contents; } ?>
 </div>
 </p>
 <hr />
+<h2 align="left" dir="ltr"><a name="General_workflow" id="General_workflow"></a>General workflow and main classes:</h2>
 <p align="left" dir="ltr"><strong><img src="soil.spec_workflow.png" alt="alphaMIR_corrplots" width="950"/><br />
-  </strong><span class="style2">Fig: General processing workflow in soil.spec package.</span></p>
-<hr />
-<h2>Overview:</h2>
-<p dir="ltr">Among other things, the package provides: </p>
+</strong><span class="style2">Fig: General processing workflow in soil.spec package</span></p>
+<p>Among other things, the package provides: </p>
 <ul>
   <li dir="ltr">
     <p dir="ltr">Classes and methods for Spectra data (<a href="SpectraPoints.html">Spectra</a>, <a href="SpectraPoints.html">SpectraPoints</a>, and <a href="fit.SpectraModel.html">SpectraModel</a>);</p>
@@ -99,18 +108,18 @@ echo $contents; } ?>
   </li>
 </ul>
 <hr />
-<h2>Installation / first steps:</h2>
+<h2><a name="Installation" id="Installation"></a>Installation and first steps:</h2>
 <p dir="ltr">To install from source please use:</p>
 <pre><em>&gt; install.packages(c(&quot;pls&quot;, &quot;KernSmooth&quot;, &quot;wavelets&quot;, &quot;hexView&quot;, &quot;sp&quot;, &quot;GSIF&quot;, &nbsp;&quot;e1071&quot;, &quot;class&quot;, &quot;chemometrics&quot;, &quot;plyr&quot;, &quot;plotKML&quot;, &quot;mgcv&quot;, &quot;nlme&quot;, &quot;spatstat&quot;, &quot;scales&quot;, &quot;date&quot;, &quot;lava&quot;))</em><br /><em>&gt; install.packages(&quot;soil.spec&quot;, repos=c(&quot;http://R-Forge.R-project.org&quot;), type = &quot;source&quot;)</em></pre>
 <p>Typical workflow in the soil.spec package is:</p>
 <pre><em>&gt; #1. Import binary file containing absorbances (OPUS):</em><br /><em>&gt; xx &lt;- read.opus(&quot;icr_087266_B2.0&quot;)</em><br />Creating object of type &quot;SpectraPoints&quot;...<br /><em>&gt; #2. Load the reference model:</em><br /><em>&gt; data(m.PHIHOX)</em><br /><em>&gt; #3. Predict soil pH based on the reference model:</em><br /><em>&gt; s.xx &lt;- predict(xx, model = m.PHIHOX, prob. = .75)</em><br /><em>&gt; s.xx</em><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PHIHOX PHIHOX_lower PHIHOX_upper<br />icr087266 &nbsp;&nbsp;&nbsp;9.1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.58 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9.62</pre>
 <hr />
-<h2>OPUS spectral data format</h2>
+<h2><a name="OPUS_data_format" id="OPUS_data_format"></a>OPUS spectral data format:</h2>
 <p dir="ltr">This package has been build to <a href="read.opus.html">read OPUS files</a> from the three Bruker spectrometers into R to be used in chemometric methods e.g. developing calibration models, for prediction, clustering, etc. Co2 bands (2380-2351 cm-1) within the MIR data are removed at the time of conversion from the original OPUS format, to ensure consistent spectra obtain from different parts of the world with varying CO2 concentration in the atmosphere.</p>
 <p dir="ltr">OPUS (OPtical User Software) is the Bruker data collection and analysis program for Alpha, Multi-Purpose Analyzer (MPA) and Tensor 27 FT-IR (HTS-xt) spectrometers. Spectral data files stored in this format are characterized by a numeric extension, usually a zero unless there are duplicates which are given increamented by one. There are lots of spectral details &nbsp;stored in form of data-blocks &nbsp;inside these files ranging from date and time of measurement, type of instrument used, Absorbance values, IR regions and much, please visit this <a href="http://shaker.umh.es/investigacion/OPUS_script/OPUS_5_BasePackage.pdf">link </a>for details.</p>
 <hr />
-<h2>Reference models</h2>
-<p dir="ltr"><strong>soil.spec</strong> package provides reference models to predict a list of targeted soil properties (<a href="spec.env.html">organic carbon, soil pH, Al, ExCa, ExK, ExMg, ExNa, Exbases, N, Sand</a>) directly from absorbances, i.e. without a need to fit your own calibration data. How were these models fitted? We used the calibration data (1391 samples) from the Africa Soil Information Services (AfSIS) project to fit <a href="http://gsif.r-forge.r-project.org/afss.html">pan-African soil spectroscopy calibration models</a>. To learn more about the AfSIS project, please visit this <a href="http://www.africasoils.net/">link</a>.</p>
+<h2><a name="Reference_models" id="Reference_models"></a>Reference models:</h2>
+<p dir="ltr"><strong>soil.spec</strong> package provides reference models to predict a list of targeted soil properties (<a href="spec.env.html">organic carbon, soil pH, Al, ExCa, ExK, ExMg, ExNa, Exbases, N, Sand</a>) directly from absorbances, i.e. without a need to fit your own calibration data. How were these models fitted? We used the calibration data (1391 samples) from the Africa Soil Information Services (AfSIS) project to fit <a href="http://gsif.r-forge.r-project.org/afss.html">pan-African soil spectroscopy calibration models</a> (note: <strong>these models will be continuously updated as the new calibration data arrives</strong>). To learn more about the AfSIS project, please visit this <a href="http://www.africasoils.net/">link</a>.</p>
 Correlation plots:<br />
 <ol>
   <li><strong dir="ltr">MIR </strong>(<a href="Fig_10_vars_fits_HST_MIR.png">plot</a>)</li>
@@ -119,10 +128,18 @@ Correlation plots:<br />
 </ol>
 <p class="style2">*Note: ExNa is difficult to predict and is good to show this from the models. Al prediction are poor for low values &lt;150 mg/kg as can be seen from the HTS-xt MIR models, though MPA model is not as good as the other two.</p>
 <hr />
+<h2><a name="Disclaimer" id="Disclaimer"></a>Disclaimer / correct citation:</h2>
+<p>While every effort has been made to ensure that the data distributed by ICRAF / ISRIC are accurate and reliable, ICRAF / ISRIC assumes <strong>no responsibility for any error or omission in the datasets nor for any direct, indirect or consequential damages arising from the use of the Datasets</strong>. ICRAF / ISRIC reserve the right to modify any information in these webpages and related datasets without notice.</p>
+<p>If not specified otherwise, all data and software products within the <a href="http://africasoils.net/about/who-we-are">AfSIS project</a> (Africa Soil Information Service; funded by the <a href="http://www.gatesfoundation.org/" target="_blank">Bill and Melinda Gates foundation</a>) are released under the <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">Creative Commons Attribution</a> license. </p>
+<p><em>Note</em>: conversion from spectral absorbances to soil properties can be of variable accuracy and can often lead to imprecise soil data (see confidence limits). We advise users of these tools to regularly collect calibration data and then send validation results to the package authors for quality control. Also note that the reference models used in the soil.spec package will be continuously updated as the new calibration data arrives, so when reporting high errors please refer to the package version.</p>
+<p><em>Correct citation</em>:</p>
+<p align="center">Sila, A. and Hengl T. 2014. <strong>soil.spec package</strong>: Soil spectroscopy tools and reference models. R package version 0.2-0, URL <a href="http://CRAN.R-project.org/package=soil.spec" target="_blank">http://CRAN.R-project.org/package=soil.spec</a>.</p>
+<p>The AfSIS project has been funded by the <a href="http://www.gatesfoundation.org/" target="_blank"><strong>Bill and Melinda Gates foundation</strong></a> and the <a href="http://www.agra.org/"><strong>Alliance for a Green Revolution in Africa</strong></a> (AGRA). To learn more about this project, visit the project website at <a href="http://africasoils.net/" target="_blank">Africasoils.net</a> and/or the <a href="http://www.agra.org/" target="_blank">AGRA website</a>.</p>
+<hr />
 <table width="100%" border="0">
   <tr>
     <td><span class="style3">Last update: 
-      <!-- #BeginDate format:Am1 -->June 24, 2014<!-- #EndDate -->
+      <!-- #BeginDate format:Am1 -->June 30, 2014<!-- #EndDate -->
     </span></td>
     <td><span class="style3"></span></td>
     <td><div align="right" class="style3"><a href="http://www.worldagroforestry.org/about_us/organisation_and_people/senior_leadership/Shepherd">World Agroforestry Centre</a> (ICRAF)</div></td>
