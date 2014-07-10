@@ -1,6 +1,6 @@
 #' Function for averaging replicated spectra rowise
 #'
-#' @author Andrew Sila \email{asila@cgiar.org} 
+#' @author Andrew Sila \email{asila@cgiar.org} and Tomislav Hengl \email{tom.hengl@wur.nl}
 
 average<-function(spec, type=""){
 ssn<-as.character(spec[,1])
