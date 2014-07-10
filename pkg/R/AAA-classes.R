@@ -4,7 +4,7 @@
 #' Note: similar classes are also available via the 'inspectr' package [http://r-forge.r-project.org/projects/inspectr/]
 
 
-#################### CLASSES #########################
+#################### CLASS DEFINITIONS #########################
 
 ## class for pure measurements
 setClass("Spectra", representation(samples = "data.frame", ab = "data.frame"), validity = function(object) {
