@@ -2,7 +2,7 @@
 \docType{data}
 \alias{wavenumbers}
 \title{Standard bands}
-\description{Standard bands with upper and lower limits (wavenumbers)}
+\description{Standard band names with upper and lower limits (wavenumbers)}
 \usage{
 data(wavenumbers)
 }
