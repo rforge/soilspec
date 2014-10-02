@@ -4,11 +4,11 @@
 \alias{predict,data.frame-method}
 \alias{predict.SpectraPoints}
 \title{Predict soil properties from an object of class \code{"SpectraPoints"}}
-\description{Predicts soil properties from an object of class \code{"SpectraPoints"} (or a \code{"data.frame"} containing absorbances and sample IDs) either by using a referent \code{"SpectraModel"} (comes with the package) or by using the user created model. Extends for example the \code{"predict.mvr"} function available from the \href{http://cran.r-project.org/web/packages/pls/}{pls} package.}
+\description{Predicts soil properties from an object of class \code{"SpectraPoints"} (or a \code{"data.frame"} containing absorbances and sample IDs) either by using a referent \code{"SpectraModel"} (comes with the package) or by using the user created model. Extends, for example, the \code{"predict.mvr"} function available from the \href{http://cran.r-project.org/web/packages/pls/}{pls} package.}
 \usage{ 
 \S4method{predict}{SpectraPoints}(object, idcol = "SAMPLEID", model, 
    variable = model@variable, 
-   output, validate = FALSE, model.class = "mvr",%AS removed: list("mvr")[[1]] to match code,
+   output, validate = FALSE, model.class = "mvr",
    confidence.band = TRUE, prob. = .90, 
    signif.digits = 3, 
    st.wavenumbers=wavenumbers, 
@@ -41,16 +41,14 @@
 \seealso{ \code{\link{SpectraPoints-class}}, \code{\link{fit.SpectraModel}}
 }
 \examples{
-\dontrun{
 data(afspec)
 ## predict pH using absorbances directly:
 data(m.PHIHOX)
 x <- predict(afspec$ab, model=m.PHIHOX)
-
+\dontrun{
 ## how good is this model?
 ## we look at the calibration data used to produce "m.PHIHOX"
 pr <- m.PHIHOX@model$fitted.values
-library(GSIF)
 library(plyr)
 library(scales)
 data(afss)

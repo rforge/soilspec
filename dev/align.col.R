@@ -1,15 +1,15 @@
 #' Function for aligning columns into one table from two tables even when the order is different#'
 #' @author Andrew Sila \email{asila@cgiar.org}
 
-rm(list=ls())
 align.col<-function(x,y){
 #Set file 1to be the master table
 y.file1.all<-c()
 	for (i in 1:ncol(y)){
-y.file1<-which(colnames(y)[i]==colnames(x))
-y.file1.all<-c(y.file1.all,y.file1)}
+   y.file1<-which(colnames(y)[i]==colnames(x))
+   y.file1.all<-c(y.file1.all,y.file1)
+}
 
-if(length(y.file1.all)<1){stop("The files are incompatible: at least one column MUST be found in both files")};
+if(length(y.file1.all)<1){stop("The files are incompatible: at least one column MUST be found in both files")}
 
 #Map the columns to match those in the master
 blank.file2_master<-matrix("NA",nrow(y),ncol(x))

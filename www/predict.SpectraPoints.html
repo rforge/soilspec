@@ -10,7 +10,7 @@
 
 <h3>Description</h3>
 
-<p>Predicts soil properties from an object of class <code>"SpectraPoints"</code> (or a <code>"data.frame"</code> containing absorbances and sample IDs) either by using a referent <code>"SpectraModel"</code> (comes with the package) or by using the user created model. Extends for example the <code>"predict.mvr"</code> function available from the <a href="http://cran.r-project.org/web/packages/pls/">pls</a> package.</p>
+<p>Predicts soil properties from an object of class <code>"SpectraPoints"</code> (or a <code>"data.frame"</code> containing absorbances and sample IDs) either by using a referent <code>"SpectraModel"</code> (comes with the package) or by using the user created model. Extends, for example, the <code>"predict.mvr"</code> function available from the <a href="http://cran.r-project.org/web/packages/pls/">pls</a> package.</p>
 
 
 <h3>Usage</h3>
@@ -117,16 +117,14 @@ predict(object, idcol = "SAMPLEID", ...)
 <h3>Examples</h3>
 
 <pre>
-## Not run: 
 data(afspec)
 ## predict pH using absorbances directly:
 data(m.PHIHOX)
 x &lt;- predict(afspec$ab, model=m.PHIHOX)
-
+## Not run: 
 ## how good is this model?
 ## we look at the calibration data used to produce "m.PHIHOX"
 pr &lt;- m.PHIHOX@model$fitted.values
-library(GSIF)
 library(plyr)
 library(scales)
 data(afss)

@@ -10,7 +10,7 @@
 trans(raw, tr = "derivative", order = 1, gap = 21, 
    plot.spectrogram = FALSE)
 
-\method{plot}{trans}(x,...)
+\method{plot}{trans}(x,\dots)
 }
 \arguments{
   \item{raw}{a matrix containing the raw spectra}
@@ -19,7 +19,7 @@ trans(raw, tr = "derivative", order = 1, gap = 21,
   \item{gap}{an integer between 1 and 30 defining the smoothing interval in wavebands}
   \item{plot.spectrogram}{specifies whether to plot the spectrogram by default}
  \item{x}{an object of class \code{"trans"}}
- \item{...}{additional arguments}
+ \item{\dots}{additional arguments}
 }
 \details{
 \code{spec.type} uses for spectral transformation (i) the \code{locpoly} function in \code{KernSmooth} package for derivative calculation, (ii) the \code{chull} and \code{approx} functions in \code{"KernSmooth"} package for continuum removal and (iii) the \code{dwt} function in \code{wavelets} package for extraction of wavelet coefficients. Experiences showed for wavelet decomposition that the best ratio of prediction performance and sparse spectral representation is reached when all 128 wavelet coefficients from decomposition level three are taken.

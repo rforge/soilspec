@@ -16,26 +16,6 @@
 \alias{m.EXB}
 \alias{m.NITCNS}
 \alias{m.SNDLDF}
-\alias{n.ORCCNS}
-\alias{n.PHIHOX}
-\alias{n.ALUM3S}
-\alias{n.ECAM3S}
-\alias{n.EXKM3S}
-\alias{n.EMGM3S}
-\alias{n.ENAM3S}
-\alias{n.EXB}
-\alias{n.NITCNS}
-\alias{n.SNDLDF}
-\alias{a.ORCCNS}
-\alias{a.PHIHOX}
-\alias{a.ALUM3S}
-\alias{a.ECAM3S}
-\alias{a.EXKM3S}
-\alias{a.EMGM3S}
-\alias{a.ENAM3S}
-\alias{a.EXB}
-\alias{a.NITCNS}
-\alias{a.SNDLDF}
 \title{Fits a calibration model for soil spectroscopy}
 \description{Fits a calibration model that can be used to convert absorbances to soil properties. Implements the \code{"plsr"} function available from the \href{http://cran.r-project.org/web/packages/pls/}{pls} package.}
 \usage{ 
@@ -72,7 +52,6 @@
 \examples{
 \dontrun{
 ## build a callibration model using AfSIS data:
-library(GSIF)
 data(afss)
 library(plyr)
 afss.tbl <- join(afss$sites, afss$horizons)
