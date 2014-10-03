@@ -34,6 +34,7 @@ The \code{afspec} data set contains two data frames --- \code{"samples"} and \co
 }
 \examples{
 library(sp)
+library(rgdal)
 data(afspec)
 sp <- afspec$samples[,c("Longitude","Latitude")]
 coordinates(sp) <- ~Longitude+Latitude
@@ -61,7 +62,8 @@ plotKML(afspec.pnts["ORCCNS"], colour_scale=SAGA_pal[[1]])
 library(GSIF)
 data(soil.legends)
 brks = c(soil.legends[["PHIHOX"]]$MIN[1]/10, soil.legends[["PHIHOX"]]$MAX/10)
-levs = paste(signif(rowMeans(cbind(soil.legends[["PHIHOX"]]$MAX,soil.legends[["PHIHOX"]]$MIN))/10, 2))
+pH.range <- cbind(soil.legends[["PHIHOX"]]$MAX, soil.legends[["PHIHOX"]]$MIN)
+levs = paste(signif(rowMeans(pH.range)/10, 2))
 afspec.pnts$Col <- cut(afspec.pnts$PHIHOX, breaks=brks, labels=levs)
 plotKML(afspec.pnts["Col"], colour_scale=soil.legends[["PHIHOX"]]$COLOR)
 }
