@@ -58,7 +58,7 @@ for(k in 1:length(nm)){
   model = get(paste("m.", nm[k], sep="")), prob. = .75) )
 }
 pr <- do.call(cbind, pr.lst)
-View(pr)
+str(pr)
 }
 \keyword{methods}
 

@@ -20,8 +20,8 @@ validate.SpectraPoints <- function(obj, model, silent=FALSE){
      s.r <- range(c(Space1[,1],Space0[,1]))
      ## 3D point pattern analysis:
      require(spatstat)
-     Space1 <- pp3(Space1[,1], Space1[,2], Space1[,3], box3(c(s.r[1]-.1, s.r[2]+.1)))
-     Space0 <- pp3(Space0[,1], Space0[,2], Space0[,3], box3(c(s.r[1]-.1, s.r[2]+.1)))
+     Space1 <- spatstat::pp3(Space1[,1], Space1[,2], Space1[,3], spatstat::box3(c(s.r[1]-.1, s.r[2]+.1)))
+     Space0 <- spatstat::pp3(Space0[,1], Space0[,2], Space0[,3], spatstat::box3(c(s.r[1]-.1, s.r[2]+.1)))
      ## distance between two 3D point patterns:
      d. <- spatstat::nncross.pp3(Space0, Space1)
      nd. <- spatstat::nndist.pp3(Space1)

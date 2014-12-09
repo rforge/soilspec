@@ -64,7 +64,7 @@ spectra.outliers<-function (file.name, spectra = "non.standard", plots = TRUE, s
         all.outliers <- which(cols == "red")
         split.screen(c(2, 1), screen = 2)
         spec.outliers <- spec@ab[all.outliers, ]
-        #Create Spectra objects for plotting
+        ## Create Spectra objects for plotting
 		samples <- cbind(spec.outliers ["SAMPLEID"], MID="AfSIS-IR", DateTime=Sys.time())
 		xo <- Spectra(samples, spec.outliers , replace.prefix="X")
 		plot(xo)

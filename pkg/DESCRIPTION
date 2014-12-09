@@ -10,6 +10,6 @@ URL: http://worldagroforestry.org/research/land-health,
 Description: A collection of functions (methods) and classes for processing and analyzing soil and plant infrared (MIR, alpha-MIR and VISNIR) spectroscopy readings based on the Africa Soil Information Services (AfSIS) project data.
 Depends: R (>= 3.0)
 Imports: methods, stats, pls, KernSmooth, wavelets, hexView, sp, GSIF
-Suggests: e1071, class, chemometrics, plyr, plotKML, mgcv, nlme, spatstat, scales, date, lava
+Suggests: e1071, class, chemometrics, plyr, plotKML, mgcv, nlme, spatstat, scales, date, lava, rgdal
 License: GPL (>= 2)
 LazyLoad: yes

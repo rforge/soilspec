@@ -56,9 +56,9 @@ rn &lt;- rank(nc)
 if(any(duplicated(rn))){ warning("Duplicate bands detected") }
 UPPER = c((nc[rn][-length(nc)]+nc[rn][-1])/2, nc[rn][length(nc)]+1)
 wns &lt;- data.frame(BAND=w, LOWER=c(nc[rn][1]-1, UPPER[-length(nc)]), UPPER=UPPER)
-View(wns)
+str(wns)
 ## compare with:
-View(wavenumbers)
+str(wavenumbers)
 </pre>
 
 <hr><div align="center">[Package <em>soil.spec</em> version 0.2.0 <a href="00Index.html">Index</a>]</div>

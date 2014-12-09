@@ -4,7 +4,6 @@
 
 
 .getTrans <- function(sampled, idcol="SAMPLEID", CO2.band = get("CO2.band", envir=spec.opts), ab.r=get("MIR", envir=spec.opts), order=1, gap=21){  ## works only with wide format
-  require(chemometrics)
   ab <- slot(slot(sampled, "data"), "ab")
   ## select region of interest:
   ab.id <- ab[idcol]
@@ -79,7 +78,7 @@ fit.SpectraModel <- function(formulaString, sampled, reference, idcol = "SAMPLEI
   ## Copy model coefficients and SAMPLEID's for fitted.values:
   out.m <- list(fitted.values=m$fitted.values[,,ncomp])
   attr(out.m$fitted.values, "names") = attr(m$model$IR, "dimnames")[[1]]
-  out.m$RMSEP <- signif(RMSEP(m)$val[,,ncomp], 3)
+  out.m$RMSEP <- signif(pls::RMSEP(m)$val[,,ncomp], 3)
   out.m$opt.coef <- coef(m, comps = 1:ncomp)
   out.m$Xmeans <- m$Xmeans
   out.m$Ymeans <- m$Ymeans 

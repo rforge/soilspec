@@ -52,8 +52,11 @@
 \examples{
 \dontrun{
 ## build a callibration model using AfSIS data:
-data(afss)
 library(plyr)
+library(sp)
+library(rgdal)
+
+data(afss)
 afss.tbl <- join(afss$sites, afss$horizons)
 con <- url("http://gsif.isric.org/lib/exe/fetch.php?media=afss.spec.rda")
 load(con)

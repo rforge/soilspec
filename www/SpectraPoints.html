@@ -61,6 +61,8 @@
 <pre> 
 ## generate the class:
 library(sp)
+library(rgdal)
+
 data(afspec)
 ## get spatial coordinates:
 sp &lt;- afspec$samples[,c("Longitude","Latitude")]

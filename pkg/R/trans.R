@@ -39,18 +39,15 @@ trans <- function (raw, tr = "derivative", order = 1, gap = 21, plot.spectrogram
         transdf <- matrix(nrow = nrow(raw), ncol = ncol(raw), dimnames = list(rownames(raw), 
             colnames(raw)))
         waveb <- as.numeric(colnames(raw))
-        #require(KernSmooth, quietly = T)
         for (i in 1:nrow(raw)) {
             transdf[i, ] <- locpoly(waveb, raw[i, ], drv = order, 
                 bandwidth = gap, gridsize = ncol(raw))[[2]]
         }
-        #detach(package:KernSmooth)
     }
     if (tr == "continuum removed") {
         transdf <- matrix(nrow = nrow(raw), ncol = ncol(raw), dimnames = list(rownames(raw), 
             colnames(raw)))
         waveb <- as.numeric(colnames(raw))
-        #require(KernSmooth, quietly = T)
         test <- raw
         for (i in 1:nrow(raw)) {
             test.1 <- cbind(waveb, test[i, ])
@@ -85,7 +82,6 @@ trans <- function (raw, tr = "derivative", order = 1, gap = 21, plot.spectrogram
             raw.comp[i, ] <- round(spline(waveb, raw[i, ], method = "natural", 
                 xout = waveb.1024)[[2]], 6)
         }
-        #library(wavelets)
         lev <- 7
         slo <- 3
         filte = "haar"

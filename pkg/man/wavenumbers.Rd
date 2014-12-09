@@ -26,8 +26,8 @@ rn <- rank(nc)
 if(any(duplicated(rn))){ warning("Duplicate bands detected") }
 UPPER = c((nc[rn][-length(nc)]+nc[rn][-1])/2, nc[rn][length(nc)]+1)
 wns <- data.frame(BAND=w, LOWER=c(nc[rn][1]-1, UPPER[-length(nc)]), UPPER=UPPER)
-View(wns)
+str(wns)
 ## compare with:
-View(wavenumbers)
+str(wavenumbers)
 }
 \keyword{data}

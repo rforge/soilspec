@@ -1,7 +1,7 @@
 import(utils, methods)
 importFrom("stats", prcomp, predict, spline)
 importFrom("KernSmooth",locpoly)
-importFrom("pls",mvr,plsr)
+importFrom("pls",mvr,plsr,RMSEP)
 importFrom("hexView",readRaw,blockString)
 importFrom("wavelets",dwt)
 importFrom("GSIF",validate)
