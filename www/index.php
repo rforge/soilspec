@@ -1,4 +1,4 @@
-
+﻿
 <!-- This is the project specific website template -->
 <!-- It can be changed as liked or replaced by other content -->
 
@@ -79,7 +79,7 @@ echo $contents; } ?>
           <p dir="ltr">Contact: A.SILA@CGIAR.ORG</p></td>
     </tr>
     <tr>
-      <td><p align="center" dir="ltr"><strong><img src="tom.hengl.jpg" width="120" height="173" alt="tom.hengl"/></strong></p>
+      <td><p align="center" dir="ltr"><strong><img src="tom.hengl.jpg" width="120" height="209" alt="tom.hengl"/></strong></p>
           <p align="center" class="style2" dir="ltr"><strong>T. (Tom) Hengl</strong></p></td>
       <td width="450"><p dir="ltr"><a href="http://www.isric.org" target="_blank">ISRIC &mdash; World Soil Information</a><br />
         Senior researcher</p>
@@ -129,11 +129,11 @@ Correlation plots:<br />
 <p class="style2">*Note: ExNa is difficult to predict and is good to show this from the models. Al prediction are poor for low values &lt;150 mg/kg as can be seen from the HTS-xt MIR models, though MPA model is not as good as the other two.</p>
 <hr />
 <h2><a name="Disclaimer" id="Disclaimer"></a>Disclaimer / correct citation:</h2>
-<p>While every effort has been made to ensure that the data distributed by ICRAF / ISRIC are accurate and reliable, ICRAF / ISRIC assumes <strong>no responsibility for any error or omission in the datasets nor for any direct, indirect or consequential damages arising from the use of the Datasets</strong>. ICRAF / ISRIC reserve the right to modify any information in these webpages and related datasets without notice.</p>
+<p>While every effort has been made to ensure that the data distributed by <a href="http://worldagroforestry.org/research/land-health">ICRAF</a> / ISRIC are accurate and reliable, <a href="http://worldagroforestry.org/research/land-health">ICRAF</a> / ISRIC assumes <strong>no responsibility for any error or omission in the datasets nor for any direct, indirect or consequential damages arising from the use of the Datasets</strong>. <a href="http://worldagroforestry.org/research/land-health">ICRAF</a> / ISRIC reserve the right to modify any information in these webpages and related datasets without notice.</p>
 <p>If not specified otherwise, all data and software products derived from the <a href="http://africasoils.net/about/who-we-are">AfSIS project</a> (Africa Soil Information Service; funded by the <a href="http://www.gatesfoundation.org/" target="_blank">Bill and Melinda Gates foundation</a>) are released under the <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">Creative Commons Attribution</a> license. </p>
 <p><em>Note</em>: conversion from spectral absorbances to soil properties can be of variable accuracy and can often lead to imprecise soil data (see confidence limits). We advise users of these tools to regularly collect calibration data and then send validation results to the package authors for quality control. Also note that the reference models used in the soil.spec package will be continuously updated as the new calibration data arrives, so when <a href="https://r-forge.r-project.org/tracker/?group_id=1867" target="_blank">reporting bugs or incosistencies</a>, please refer to the package version.</p>
 <p><em>Correct citation</em>:</p>
-<p align="center">Sila, A. and Hengl T. 2014. <strong>soil.spec package</strong>: Soil spectroscopy tools and reference models. R package version 0.2-0, URL <a href="http://CRAN.R-project.org/package=soil.spec" target="_blank">http://CRAN.R-project.org/package=soil.spec</a>.</p>
+<p align="center">Sila, A. and Hengl T. 2014. <strong>soil.spec package</strong>: Soil spectroscopy tools and reference models. R package version 2.1.4, URL <a href="http://CRAN.R-project.org/package=soil.spec" target="_blank">http://CRAN.R-project.org/package=soil.spec</a>.</p>
 <p>The AfSIS project has been funded by the <a href="http://www.gatesfoundation.org/" target="_blank"><strong>Bill and Melinda Gates foundation</strong></a> and the <a href="http://www.agra.org/"><strong>Alliance for a Green Revolution in Africa</strong></a> (AGRA). To learn more about the AfSIS project, visit the project website at <a href="http://africasoils.net/" target="_blank">Africasoils.net</a> and/or the <a href="http://www.agra.org/" target="_blank">AGRA website</a>.</p>
 <hr />
 <table width="100%" border="0">
